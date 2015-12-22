@@ -12,6 +12,36 @@ namespace ToFacebook1.Controllers
         
         public string Access_Token { get; set; }
 
+        public ActionResult LoginCheck()
+        {
+            if (Session["AccessToken"] != null)
+            {
+                ViewBag.check = "Logged in";
+               
+            }
+            else
+            {
+                ViewBag.check = "No user active";
+            }
+            return View();
+        }
+        public ActionResult Logout()
+        {
+            var fb = new FacebookClient();
+
+            var logoutUrl = fb.GetLogoutUrl(new
+            {
+                access_token = Session["AccessToken"],
+
+                next = "/home/LoginCheck"
+
+            });
+
+            Session.Remove("AccessToken");
+
+            Response.Redirect(logoutUrl.AbsoluteUri);
+            return View();
+        }
         public ActionResult Start() {
             // Check if already Signed In
             if (Session["AccessToken"] != null)
