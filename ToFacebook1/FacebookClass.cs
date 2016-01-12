@@ -89,10 +89,18 @@ namespace ToFacebook1
             }
             var client = new FacebookClient(pageAccessToken);
             Dictionary<string, object> fbParams = new Dictionary<string, object>();
-            fbParams["message"] = "Test message" + new Random().Next(int.MinValue, int.MaxValue).ToString();
-            var publishedResponse = client.Post("/datasmorj/feed", fbParams);
-            
+            fbParams["message"] = "Test comment" + new Random().Next(int.MinValue, int.MaxValue).ToString();
 
+            fbParams["link"] = "http://newsflashon.azurewebsites.net/Home/Nyheter/halsningar-fran-goteborg";
+            fbParams["picture"] = "https://stebrastash.blob.core.windows.net/photos/public_parrot.jpg";
+            fbParams["name"] = "Hälsningar från Göteborg!";
+            fbParams["caption"] = "Stebra.se";
+            fbParams["description"] = "​En fin eftermiddag";
+            
+            
+            var publishedResponse = client.Post("/datasmorj/feed", fbParams);
+
+            
         }
 
 
